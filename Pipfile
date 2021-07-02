@@ -8,6 +8,8 @@ scikit-learn = "*"
 pandas = "*"
 pyyaml = "*"
 pdoc = "*"
+pdoc3 = "*"
+pylint = "*"
 
 [dev-packages]
 

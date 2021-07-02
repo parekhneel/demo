@@ -1,13 +1,23 @@
+"""
+This script allows users to run the database connection and model pipeline.
+"""
+
+####################################### IMPORTS #######################################
 from dataclasses import dataclass
 from enum import Enum
-import yaml
+import os
 
 from .utils import fetch_version_hash
 
+
+####################################### CONFIG CLASSES #######################################
 class DBs(Enum):
+    '''
+    the connection url for each database type
+    '''
     EDW = 'datasunrise01.aws2.teladoc.com'
     REDSHIFT = 'redshift.prod.livongo.com'
-    
+
 @dataclass
 class ModelConfig():
     '''
@@ -20,8 +30,8 @@ class ModelConfig():
     environment = 'databricks'
         this is the environment in which you're running the experiment (eg databricks, local, etc)
     experiment_name: str = None
-        Use this to name your experiment and append a string to a file name. TODO: check if valid file
-        naming convention
+        Use this to name your experiment and append a string to a file name. TODO: check if valid
+        file naming convention
     start_date = '2020-01-01'
         the YYYY-MM-DD that the training data starts
     save_path: str = '/Users/neel.parekh/Desktop/examples/'
@@ -29,11 +39,11 @@ class ModelConfig():
     '''
 
     learning_rate: float = 1e-3
-    environment = 'databricks'
+    environment: str = 'databricks'
     experiment_name: str = None
-    start_date = '2020-01-01'
-    save_path: str = '/Users/neel.parekh/Desktop/examples/'
-        
+    start_date: str = '2020-01-01'
+    save_path: str = './models/'
+
     @property
     def model_path(self) -> str:
         '''
@@ -48,17 +58,22 @@ class ModelConfig():
             where the model will be saved on the file system
         '''
         file_name = '_'.join(
-            [str(item) for item in [self.environment, self.experiment_name, self.start_date]]
+            [str(item) for item in [
+                    self.environment,
+                    self.experiment_name,
+                    self.start_date
+                ]
+            ]
         )
         model_path = self.save_path + file_name + '.model'
         return model_path
 
-@dataclass        
+@dataclass
 class DatabaseConfig():
     '''
-    This is an example of how you might connect to one of the Teladoc databases. Still need to add
-    function that will help access tables from the database, verifying table names are appropriately
-    specified.
+    This is an example of how you might connect to one of the Teladoc databases. Still
+    need to add function that will help access tables from the database, verifying table
+    names are appropriately specified.
 
     Attributes
     ----------
@@ -69,20 +84,19 @@ class DatabaseConfig():
     '''
     db_name: DBs
     entities: list[str] = None
-        
-    @property
-    def db_conn():
-        '''
-        WIP
-        '''
-        # code to create db connection here...
-        pass
+
+    # @property
+    # def db_conn(self):
+    #     '''
+    #     WIP
+    #     '''
+    #     # code to create db connection here...
+    #     pass
 
 
-
-
+####################################### MAIN RUN #######################################
 if __name__ == "__main__":
-    
+
     # Create the configs
     model_params = ModelConfig(
         learning_rate=1e-5,
@@ -102,5 +116,5 @@ if __name__ == "__main__":
     # for debugging, print the outputs of the above configs
     print()
     print(f"INPUT_CONFIG: {input_config}")
-    print(f"MODEL_SAVE_PATH: {model_params.model_path}")
+    print(f"MODEL_SAVE_PATH: {os.path.abspath(model_params.model_path)}")
     print(f"MODEL_PARAMS: {model_params}")
