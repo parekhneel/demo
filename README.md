@@ -2,6 +2,10 @@
 Demonstrating Some Python Features and Documentation Examples.
 
 ## Requirements
+- Python 3.7+
+- pipenv
+- pdoc
+- pylint
 
 ## Developers
 
