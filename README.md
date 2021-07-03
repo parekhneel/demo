@@ -3,16 +3,16 @@ Demonstrating Some Python Features and Documentation Examples.
 
 ## Requirements
 - Python 3.7+
-- pipenv
-- pdoc
-- pylint
+- [pipenv](https://pipenv.pypa.io/en/latest/install/#installing-pipenv): python dependency manager
+- [pdoc](https://pdoc.dev/): automatically generates code documentation from docstrings
+- [pylint](https://www.pylint.org): helps maintain code quality
 
 ## Developers
 
 ### Setup
 1. Clone this repo.
 2. Create a virtual environment with Python 3.7+. I use pyenv, if you use conda it's `conda create --name demo python=3.7`
-3. I use [pipenv](https://pipenv.pypa.io/en/latest/install/#installing-pipenv) (You can install via `pip install pipenv`) to manage my python dependencies. If you use pipenv, you'll see a Pipfile available for you to run: `pipenv install --dev` in the directory containing the Pipfile (i.e. the top-level directory of this repo)
+3. I use pipenv (You can install via `pip install pipenv`) to manage my python dependencies. If you use pipenv, you'll see a Pipfile available for you to run: `pipenv install --dev` in the directory containing the Pipfile (i.e. the top-level directory of this repo)
 4. Launch the environment with `pipenv shell`
 5. Navigate to the `src` directory and run "run_pipeline.py": `python run_pipeline.py`
 
